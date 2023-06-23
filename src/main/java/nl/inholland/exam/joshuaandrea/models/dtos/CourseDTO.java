@@ -7,7 +7,6 @@ import nl.inholland.exam.joshuaandrea.models.Review;
 
 public record CourseDTO(
         String title,
-        String description,
-        @Nullable List<Review> reviews
+        String description
 ) {
 }

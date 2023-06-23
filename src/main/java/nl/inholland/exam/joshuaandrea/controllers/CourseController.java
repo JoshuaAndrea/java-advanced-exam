@@ -1,6 +1,7 @@
 package nl.inholland.exam.joshuaandrea.controllers;
 
 import nl.inholland.exam.joshuaandrea.models.Course;
+import nl.inholland.exam.joshuaandrea.models.dtos.CourseDTO;
 import nl.inholland.exam.joshuaandrea.services.CourseService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +29,12 @@ public class CourseController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> addCourse(@RequestBody Course course){
-        return ResponseEntity.ok(courseService.addCourse(course));
+    public ResponseEntity<Object> addCourse(@RequestBody CourseDTO dto){
+        return ResponseEntity.ok(courseService.addCourse(dto));
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateCourse(@RequestBody Course course){
-        return ResponseEntity.ok(courseService.updateCourse(course));
+    public ResponseEntity<Object> updateCourse(@RequestBody CourseDTO dto){
+        return ResponseEntity.ok(courseService.updateCourse(dto));
     }
 }
