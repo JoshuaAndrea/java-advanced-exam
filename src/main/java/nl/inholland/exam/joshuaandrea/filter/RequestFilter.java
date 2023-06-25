@@ -12,7 +12,6 @@ import javax.naming.AuthenticationException;
 import java.io.IOException;
 
 @Component
-@Order(1)
 public class RequestFilter extends OncePerRequestFilter {
 
     private final String API_KEY = "12345";
