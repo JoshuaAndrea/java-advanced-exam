@@ -1,9 +1,8 @@
 package nl.inholland.exam.joshuaandrea.controllers;
 
-import nl.inholland.exam.joshuaandrea.models.Course;
-import nl.inholland.exam.joshuaandrea.models.dtos.CourseDTO;
+import nl.inholland.exam.joshuaandrea.models.dtos.CourseRequestDto;
 import nl.inholland.exam.joshuaandrea.services.CourseService;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +19,21 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<Object> getAllCourses(){
-        return ResponseEntity.ok(courseService.getAllCourses());
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getAllCourses());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCourseById(@PathVariable long id){
-        return ResponseEntity.ok(courseService.getCourseById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseById(id));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> addCourse(@RequestBody CourseDTO dto){
-        return ResponseEntity.ok(courseService.addCourse(dto));
+    @PostMapping()
+    public ResponseEntity<Object> addCourse(@RequestBody CourseRequestDto dto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseService.addCourse(dto));
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateCourse(@RequestBody CourseDTO dto){
-        return ResponseEntity.ok(courseService.updateCourse(dto));
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateCourse(@PathVariable long id, @RequestBody CourseRequestDto dto){
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.updateCourse(id, dto));
     }
 }

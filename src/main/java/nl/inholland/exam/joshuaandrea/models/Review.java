@@ -1,6 +1,6 @@
 package nl.inholland.exam.joshuaandrea.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -27,7 +27,7 @@ public class Review {
         LocalDate date;
 
         @ManyToOne
-        @JsonManagedReference
+        @JsonBackReference
         Course course;
 
 }

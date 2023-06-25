@@ -2,17 +2,24 @@ package nl.inholland.exam.joshuaandrea.services;
 
 import nl.inholland.exam.joshuaandrea.models.Course;
 import nl.inholland.exam.joshuaandrea.models.Review;
+import nl.inholland.exam.joshuaandrea.models.dtos.CourseRequestDto;
 import nl.inholland.exam.joshuaandrea.repositories.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 @Service
 public class CourseService {
 
     private final CourseRepository courseRepository;
+
+    private final Function<CourseRequestDto, Course> mapCourseDtoToCourse = dto -> {
+        Course course = new Course();
+        course.setTitle(dto.title());
+        course.setDescription(dto.description());
+        return course;
+    };
 
     public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
@@ -50,11 +57,13 @@ public class CourseService {
         return course;
     }
 
-    public Course addCourse(Course course){
+    public Course addCourse(CourseRequestDto dto){
+        Course course = mapCourseDtoToCourse.apply(dto);
         return courseRepository.save(course);
     }
 
-    public Course updateCourse(Course course){
+    public Course updateCourse(long id, CourseRequestDto dto){
+        Course course = mapCourseDtoToCourse.apply(dto);
         return courseRepository.save(course);
     }
 

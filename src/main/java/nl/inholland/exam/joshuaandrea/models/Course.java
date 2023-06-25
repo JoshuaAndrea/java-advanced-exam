@@ -1,7 +1,6 @@
 package nl.inholland.exam.joshuaandrea.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +23,6 @@ public class Course {
 
     @OneToMany
     @JsonManagedReference
-    @Nullable
     private List<Review> reviews;
 
     @Transient
