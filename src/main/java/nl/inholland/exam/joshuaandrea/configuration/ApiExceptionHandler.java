@@ -1,5 +1,6 @@
 package nl.inholland.exam.joshuaandrea.configuration;
 
+import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.exam.joshuaandrea.models.dtos.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = {LimitExceededException.class})
     public ResponseEntity<Object> handleException(LimitExceededException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO(e.getMessage()));
+    }
+
+    @ExceptionHandler(value = {EntityNotFoundException.class})
+    public ResponseEntity<Object> handleException(EntityNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO(e.getMessage()));
     }
 
 

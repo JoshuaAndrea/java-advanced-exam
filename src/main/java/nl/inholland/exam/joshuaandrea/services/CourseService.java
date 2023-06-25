@@ -1,5 +1,6 @@
 package nl.inholland.exam.joshuaandrea.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.exam.joshuaandrea.models.Course;
 import nl.inholland.exam.joshuaandrea.models.Review;
 import nl.inholland.exam.joshuaandrea.models.dtos.CourseRequestDto;
@@ -43,8 +44,8 @@ public class CourseService {
 
     public Course getCourseById(long id){
         Course course = courseRepository.findById(id)
-                                .orElse(null);
-        if (course == null) throw new IllegalArgumentException("Course not found");
+                .orElseThrow(() -> new EntityNotFoundException("Course not found"));
+
 
         course.setAverageRating(
                 course
@@ -63,7 +64,15 @@ public class CourseService {
     }
 
     public Course updateCourse(long id, CourseRequestDto dto){
-        Course course = mapCourseDtoToCourse.apply(dto);
+        //Fetch course from db using id
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found"));
+
+        //Update values
+        course.setTitle(dto.title());
+        course.setDescription(dto.description());
+
+        //Save updated course
         return courseRepository.save(course);
     }
 

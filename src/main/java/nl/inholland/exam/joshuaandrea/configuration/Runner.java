@@ -12,6 +12,8 @@ public class Runner implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+        //Seed a course
 
+        //Seed 2 reviews
     }
 }
